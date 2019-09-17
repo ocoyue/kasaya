@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocoyue.cloud.p1.mapper.TbUserMapper">
+  <resultMap id="BaseResultMap" type="com.ocoyue.cloud.p1.domain.TbUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uname" jdbcType="INTEGER" property="uname" />
+    <result column="uage" jdbcType="INTEGER" property="uage" />
+  </resultMap>
+</mapper>

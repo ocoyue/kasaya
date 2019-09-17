@@ -18,9 +18,16 @@ target/
 ## JRebel ##
 rebel.xml
 
+##  zz  ##
+zz/
+zz
+a.txt
+a-dir
+
 ## MAC ##
 .DS_Store
 
 ## Other ##
 logs/
 temp/
+*.log

@@ -1,0 +1,27 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#datasource:
+#  url: jdbc:mysql://192.168.0.100:3306/bebase?useUnicode=true&characterEncoding=utf8
+#  username: bebase
+#  password: boxfish
+#  tomcat:
+#    test-while-idle: true
+#    test-on-connect: true
+#    validation-query: SELECT 1
+  datasource:
+    url: jdbc:mysql://10.211.55.15:3306/p1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    show-sql: true
+
+
+
+
+
+

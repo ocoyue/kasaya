@@ -29,21 +29,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-# --------------------------- 分隔线 ---------------------------
-
-###   mvn   ###
-.mvn/
-mvnw
-mvnw.cmd
-
-###  MAC  ###
-.DS_Store
-
-###  Other ###
-logs/
-*.log
-
-
-
-

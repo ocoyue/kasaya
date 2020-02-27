@@ -29,13 +29,48 @@ func main() {
 }
 
 func transfer() {
-	sli := []int {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}
+	map_demo()
+}
 
-	delete_slice(4,sli)
-	fmt.Println("函数外sli",sli)
-
+func map_demo1() {
 
 }
+
+
+
+
+// map
+func map_demo() {
+	// create map
+	map0 := make(map[int]string)
+	map1 := map[int]string{
+		1: "one",
+		2: "two",
+		3: "there",
+	}
+	var map2 map[int]string
+	fmt.Println(map0,map1,map2)
+
+	// get value
+	value1 := map1[2]
+	fmt.Println("获取map的value", value1)
+
+	// delete element
+	delete(map1,2)
+	fmt.Println("删除元素之后的map", map1)
+
+	// traverse 遍历
+	for k, v := range map1 {
+		fmt.Println(k,v)
+	}
+
+	// 判断
+	value_null, ok := map1[33]
+	fmt.Println(value_null,ok)
+
+}
+
+
 
 // delete 删除 slice
 func delete_slice(i int, sli []int)  {

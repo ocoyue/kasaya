@@ -93,6 +93,8 @@ switch/case，和java相反，每一项会自动break，除非使用fallthrough
 
   golang在定义类型的时候，就要考虑要作为指针用还是值用
 
+  Go 所有的传递，都是值传递
+
 - *，&
 
   类型前面*，代表某类型的指针
@@ -199,22 +201,136 @@ var m3 map[string]int
   	- 除了slice, map, function 的内件类型都可以做为key
   	- Struct 类型不包含商数字段，也可以作为key
 
+###### 3.3.4 rune
 
-
-
-
-
-
-
-
+- 使用    `utf8.RuneCountInString`    获取字符数量
+- 使用    len  获取字节(长度)数量
+- 使用    []byte    获取字节切片
+- 常规字符串操作
+  - Fields(空格分割)    Split    Join
+  - Contains    Index 
+  - ToLower    ToUpper
+  - Trim    TrimRight    TrimLeft
 
 ### 二、 面向接口
+
+#### 1. 面向对象(OOP)
+
+Object Oriented Programming
+
+1.1 特性
+
+​		1.1.1 Go语言仅支持封装，不支持继承与多态
+
+​		1.1.2 Go语言没有class，只有struct
+
+1.2 struct结构体的定义
+
+```
+// declarat struct 声明/定义 结构体
+type treeNode struct {
+	value int
+	left, right *treeNode
+}
+func struct_demo() {
+	// 实例化结构体 init struct
+	var root treeNode
+
+	root = treeNode{value: 3}
+	root.left = &treeNode{}
+	root.right = &treeNode{5,nil,nil}
+	root.right.left = new(treeNode)
+
+	nodes := []treeNode{
+		{value:3},
+		{},
+		{6,nil,&root},
+	}
+	fmt.Println(nodes)
+}
+```
+
+- 不论地址还是结构本身，尽皆使用  .  访问成员
+
+```
+func factoryNode(i int) *treeNode {
+	return &treeNode{value:i}
+	/* 附：此处返回的是局部变量的地址给函数外界，
+	在CPP中是典型常见错误，但是golang中允许这样传递
+	*/
+}
+```
+
+- 使用自定义工厂函数
+
+- 注意返回了局部变量的地址
+
+- 结构常见在堆上还是栈上？
+
+	- CPP ：函数内部的放在栈上，函数结束后就销毁。
+
+					函数外部的放在堆上，需要手动才能销毁。
+	
+- java：函数内销毁。函数外放在堆上，由java GC回收
+  
+  - golang：根据是否取地址给外界决定
+  
+       
+
+- 专属函数
+
+  1. 显式定义， 命名方法接受者
+
+     ```
+     // treeNode 的专属函数
+     func (x *treeNode) setValue(i int) {
+     	// 因为go只有值传递，所以要改变结构体内容，只能使用指针
+     	x.value = i
+     }
+     ```
+
+     
+
+  2. 调用专属函数的时候，无论 地址指针 or 变量名称 ，聪明的编译器都可以转换为符合函数要求的状态调用专属函数。
+
+  3.  nil 空针，可以  .  专属函数，但是无法  .  成员
+
+  4. 值接收  vs  指针接收
+
+     - 修改内容，必须指针
+  - 结构过大，优先指针
+     
+     - 一致性，若有指针接收这，最好一致
+  - ***值接收***  go语言特有
+    
+    - java ： this关键字，引用
+       - cpp ： this关键字，指针
+    - python： self关键字，指针
+     - 值接收 / 指针接收，均可混用接收(address / name)
+     - 
+    
+  
+    
+  
+  
+  
+
+
+
+#### 2. bbb
+
+
 
 ### 三、 函数式编程
 
 ### 四、 工程化
 
 ### 五、 并发编程
+
+### 六、 吐槽
+
+1. 类型在名字后面，导致程序员往往先写了类型，再把光标移到前面，写名称。反程序员的设计。
+2. 函数的接收者，使用起来其实和普通函数里面加一个参数是一样的。区别在于，使用权限。既然只是为了区别使用权限，结构体的专属函数应该写在结构体里面，为什么要写在外面呢？影响观瞻，影响阅读。
 
 
 
@@ -245,13 +361,25 @@ var m3 map[string]int
 
 自动赋值		variable ：cmd opt V 或.var
 
+文档速览		quick documentation F1 或 ctrl+J 或 ctrl + 滚轮(button2)
+
 ###### LiveTemplates
 
-这真的是个好东西。。
+这真的是个好东西，可以自定义缩写
 
 ：，err，for, forr....
 
+比如自定义一个ff `fmt.Println($VAR$)$END$`，再Edit variables和choose
 
+
+
+##### Postfix Completion
+
+这真的是个好东西，是语句之后 + . 指令
+
+比如自定义一个.f    `fmt.Println($EXPR$)$END$`
+
+则`"hello".f` 自动为 `fmt.Println("hello")`
 
 
 
@@ -278,6 +406,7 @@ $\left| 3 \right|$
   - `%v` 以默认的方式打印变量的值
 	- `%T` 打印变量的类型
 	- `%q` 单引号围绕的字符字面值，由go语法安全的转义，UTF-8和Unicode转char
+	- `%X` 大写的十六进制
 
 
 - <font color=#2F4F4F size=5>Integer</font>
@@ -363,6 +492,7 @@ $\left| 3 \right|$
 - yanlib
   - kasaya
     - go ja cv kg nlp bc note
+
 
 
 

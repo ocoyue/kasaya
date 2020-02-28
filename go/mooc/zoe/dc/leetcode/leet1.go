@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"sort"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -12,7 +13,11 @@ func main() {
 }
 
 func transfer() {
+	startTime1 := time.Now().UnixNano()
 	leet_code1()
+	startTime2 := time.Now().UnixNano()
+
+	fmt.Println(startTime2 - startTime1)
 }
 
 /*
@@ -23,7 +28,7 @@ func leet_code1() {
 	s := "abcd888dcba"
 	typeOfs := reflect.TypeOf(s)
 	fmt.Println(typeOfs)
-	fmt.Printf("%T \n",s)
+	fmt.Printf("%T \n", s)
 
 	/*	分两步：
 		part1. 找出所有不含有重复字符的子串
@@ -106,4 +111,23 @@ func s_1() {
 func s_2(s string) {
 	s = "wxyz"
 	fmt.Printf("s_2 s is : %v \n", s)
+}
+
+// from other
+func lengthOfNonRepeatingSubStr(s string) int {
+	s = "abc88cba"
+	lastOccurred := make(map[byte]int) // 某个字符，和最后出现的位置
+	start := 0                         // 当前找到的最长字符子串，的起点
+	maxLength := 0
+	for i, ch := range []byte(s) {
+
+		if lastI, ok := lastOccurred[ch]; ok && lastI >= start {
+			start = lastI + 1
+		}
+		if i-start+1 > maxLength {
+			maxLength = i - start + 1
+		}
+		lastOccurred[ch] = i
+	}
+	return maxLength
 }

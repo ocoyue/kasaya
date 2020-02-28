@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"math"
 	"os"
+	"unicode/utf8"
 )
 
 // 包变量
@@ -29,15 +30,45 @@ func main() {
 }
 
 func transfer() {
-	map_demo()
+	rune_demo()
 }
 
-func map_demo1() {
-
+// 字符串常规操作
+func str_demo() {
+	// TODO
+	fmt.Println("TODO")
 }
 
+// rune 字符 占4个字符
+func rune_demo() {
+	// string 的utf-8 and Unicode 遍历
+	str := "Hello 世界"
+	//utf-8遍历, 一个汉字，拆成3个byte，unit8
+	for i := 0; i < len(str); i++ {
+		ch := str[i]
+		fmt.Printf("%v    %T    ", ch, ch)
+	}
+	//Unicode遍历，一个汉字，一个整体，rune，int32
+	fmt.Printf("\n=============>Unicode遍历\n")
+	for _, ch1 := range str {
+		fmt.Printf("%v    %T    ", ch1, ch1)
+	}
 
+	fmt.Println()
+	fmt.Println("Rune count :", utf8.RuneCountInString(str))
 
+	bytestr := []byte(str)
+	for len(bytestr) > 0 {
+		ch, size := utf8.DecodeRune(bytestr)
+		fmt.Printf("%c %v\n", ch, size)
+
+		bytestr = bytestr[size:]
+	}
+
+	for i, r := range []rune(str) {
+		fmt.Printf("(%d, %q)", i, r)
+	}
+}
 
 // map
 func map_demo() {
@@ -49,50 +80,47 @@ func map_demo() {
 		3: "there",
 	}
 	var map2 map[int]string
-	fmt.Println(map0,map1,map2)
+	fmt.Println(map0, map1, map2)
 
 	// get value
 	value1 := map1[2]
 	fmt.Println("获取map的value", value1)
 
 	// delete element
-	delete(map1,2)
+	delete(map1, 2)
 	fmt.Println("删除元素之后的map", map1)
 
 	// traverse 遍历
 	for k, v := range map1 {
-		fmt.Println(k,v)
+		fmt.Println(k, v)
 	}
 
 	// 判断
 	value_null, ok := map1[33]
-	fmt.Println(value_null,ok)
+	fmt.Println(value_null, ok)
 
 }
 
-
-
 // delete 删除 slice
-func delete_slice(i int, sli []int)  {
-	fmt.Printf("delete 删除第 %d 个元素\n",i)
-	sli = append(sli[:i],sli[i+2:]...)
-	fmt.Println("函数内删除后slice",sli)
+func delete_slice(i int, sli []int) {
+	fmt.Printf("delete 删除第 %d 个元素\n", i)
+	sli = append(sli[:i], sli[i+2:]...)
+	fmt.Println("函数内删除后slice", sli)
 
 	// return sli
 }
 
 // copy 拷贝 slice
 func copy_slice() {
-	sli := []int {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}
+	sli := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
 	sli2 := make([]int, 3, 5)
 	sli3 := make([]int, 30, 60)
-	copy(sli2,sli)
-	copy(sli3,sli)
+	copy(sli2, sli)
+	copy(sli3, sli)
 	fmt.Println(sli)
 	fmt.Println(sli2)
 	fmt.Println(sli3)
 }
-
 
 // slice修改只有对原底版的影响
 func slice_test1() {
@@ -104,16 +132,17 @@ func slice_test1() {
 
 	arr2 := [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 	slice2 := arr2[:]
-	fmt.Println("slice2 len ",len(slice2))
-	fmt.Println("slice2 cap ",cap(slice2))
+	fmt.Println("slice2 len ", len(slice2))
+	fmt.Println("slice2 cap ", cap(slice2))
 
-	slice2 = append(slice2, 41, 51, 61, 71, 81, 91, 101,102, 103,104,105,106)
+	slice2 = append(slice2, 41, 51, 61, 71, 81, 91, 101, 102, 103, 104, 105, 106)
 	slice2[0] = -98
 	fmt.Println("do")
 	fmt.Printf("arr is \n%d \nslice is \n%d \n", arr2, slice2)
 
 }
 
+// 切片问题
 func slice_question() {
 	arr := [...]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	s1 := arr[2:6]
@@ -123,12 +152,14 @@ func slice_question() {
 	fmt.Printf("s1 %s,\n s1长度为%d,\n s1容量为%d", s1, len(s1), cap(s1))
 }
 
+// 切片
 func slice_test() {
 	arr := [...]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 	s := arr[2:6]
 	fmt.Println("arr[2:6] is ", s)
 }
 
+// 函数为参数
 func app(cc ...func() int) string {
 	result := 0
 	for k, v := range cc {

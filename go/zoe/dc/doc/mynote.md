@@ -299,25 +299,37 @@ func factoryNode(i int) *treeNode {
 
      - 修改内容，必须指针
   - 结构过大，优先指针
-     
+    
      - 一致性，若有指针接收这，最好一致
   - ***值接收***  go语言特有
     
     - java ： this关键字，引用
+      
        - cpp ： this关键字，指针
     - python： self关键字，指针
      - 值接收 / 指针接收，均可混用接收(address / name)
-     - 
+    
+     
     
   
-    
-  
-  
-  
+
+#### 2. 包 & 封装
+
+- 
+
+  - 首字母大写 -> public, 小写 -> private
+  - 每个目录一个包
+  - main包 包含可执行入口
+  - 为结构定义的方法必须放在同一个包内，可以是不同文件
+- 如何扩充？ 系统类型 or 别人的类型
+  - 定义别名 封装 `type a []string`
+  - 使用组合 模拟 继承 `type z_stu struct{stu *student}`
 
 
 
-#### 2. bbb
+#### 3. ccc
+
+#### 4. ddd
 
 
 
@@ -327,14 +339,20 @@ func factoryNode(i int) *treeNode {
 
 ### 五、 并发编程
 
-### 六、 吐槽
+### 六、 吐槽 & 注意
+
+####  吐槽
+
+
 
 1. 类型在名字后面，导致程序员往往先写了类型，再把光标移到前面，写名称。反程序员的设计。
 2. 函数的接收者，使用起来其实和普通函数里面加一个参数是一样的。区别在于，使用权限。既然只是为了区别使用权限，结构体的专属函数应该写在结构体里面，为什么要写在外面呢？影响观瞻，影响阅读。
 
 
 
+#### 注意
 
+- append( ) 改变了slice的len,cap，原本slice可以到处当view真实值来用，但是append( )之后，成了另一个新的slice，就sli在原处不受影响 
 
 
 
@@ -387,22 +405,14 @@ func factoryNode(i int) *treeNode {
 
 ##### LaTex
 
-$\alpha \in A$
-
-$\sqrt{2}$
-
-$[w]$
-
-$\left| 3 \right|$
-
-
+$\alpha \in A$		$\sqrt{2}$		$[w]$		$\left| 3 \right|$
 
 
 
 ### fmt包Printf
 
 
-- <font color=#2F4F4F size=5>General 常贵/常用</font>
+- <font color=#2F4F4F size=5>General 常规/常用</font>
   - `%v` 以默认的方式打印变量的值
 	- `%T` 打印变量的类型
 	- `%q` 单引号围绕的字符字面值，由go语法安全的转义，UTF-8和Unicode转char

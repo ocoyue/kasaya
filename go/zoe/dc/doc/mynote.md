@@ -315,6 +315,8 @@ func factoryNode(i int) *treeNode {
 
 #### 2. 包 & 封装
 
+##### 封装
+
 - 
 
   - 首字母大写 -> public, 小写 -> private
@@ -325,9 +327,131 @@ func factoryNode(i int) *treeNode {
   - 定义别名 封装 `type a []string`
   - 使用组合 模拟 继承 `type z_stu struct{stu *student}`
 
+##### GOPATH
+
+。。。
+
+#### 3. 接口
+
+##### 3.1 duck typing
+
+- > The name comes from the phrase:
+  >
+  >  "If it looks like a duck and quacks like a duck, it's a duck".
+
+描述事物的外部行为，而非内部结构
+
+严格说，Go语言属于结构化类型系统，类似duck typing
+
+- 
+
+  - Python 中 duck typing
+
+    ``` python
+    def download(retriever):
+    		return retriever.get("www.imooc.com")
+    ```
+
+    1. 运行时才知道传入的retriever有没有get
+    2. 需要注释来说明接口
+
+  - CPP 中 duck typing
+
+    ```c++
+    template <class R>
+    string download(const R& retriever) {
+      return retriever.get("www.imooc.com");
+    }
+    ```
+
+    1. 编译时才知道传入的retriever有没有get
+    2. 需要注释类说明接口
+
+  - JAVA中，类似duck typing
+
+    ```java
+    <R extends Retriever>
+    String download(R r) {
+      return r.get("www.imooc.com");
+    }
+    ```
+
+    1. 传入的参数必须实现Retriever接口
+    2. 不是duck typing
+
+  - golang 的duck typing
+
+    思考：同时需要Readable, Appendable怎么办？
+
+    1. 同时具有Python，CPP 的duck typing的灵活性
+    2. 又具有java的类型检查
+
+- 接口的定义
+
+  - go 的接口，由** 使用者 **来定义。(不同于传统面向对象)
+		```mermaid
+		graph LR
+		A(使用者 download) -->B(实现着 retriever)
+		```
+
+- 
+  - 接口的实现是隐式的
+  - 只要实现接口里的方法
 
 
-#### 3. ccc
+
+##### 3.2 接口的实现 implement interface
+
+- A结构实现B接口中所有的方法，及认定为implement。
+
+- 当A结构的方法的接受者为*p时，则为这个结构的指针实现了接口，使用时只能用指针类型
+
+- interface 的肚子里，有两个东西，一个是类型type，一个是值value
+
+  ```mermaid
+  graph LR
+    subgraph 接口变量
+      实现者的类型 -.- 实现者的指针
+    end
+    实现者
+    实现者的指针 --> 实现者
+  
+  ```
+
+  
+
+- 查看interface的类型，两个方法：
+
+  - ```
+    switch v := r.(type) {
+    case mock.HHRetriever:
+    		fmt...
+    case real.RRetriever:
+    		fmt...
+    }
+    ```
+
+  - ```
+    if mockRetriever, ok := r.(mock.RRetriever);ok{
+    fmt..
+    } else {
+    fmt..
+    }
+    ```
+
+  - 表示任何类型：``` interface{}```
+
+- 接口变量自带指针
+
+- 接口变量同样采用值传递，几乎不需要使用指针
+
+- 指针接收者实现只能以指针方式使用；值接收者都可
+
+
+
+
+
+
 
 #### 4. ddd
 
@@ -407,7 +531,59 @@ func factoryNode(i int) *treeNode {
 
 $\alpha \in A$		$\sqrt{2}$		$[w]$		$\left| 3 \right|$
 
+##### mermaid
 
+```mermaid
+
+graph LR
+
+A[方形] -->B(圆角)
+
+    B --> C{条件a}
+
+    C -->|a=1| D[结果1]
+
+    C -->|a=2| E[结果2]
+
+    F[横向流程图]
+
+```
+
+
+
+```mermaid
+graph LR
+  subgraph g1
+    a1-->b1
+  end
+        
+```
+
+
+
+
+
+
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
 
 ### fmt包Printf
 

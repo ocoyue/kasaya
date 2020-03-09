@@ -12,9 +12,12 @@ type HHRetriever struct {
 	Contents string
 }
 
-func (p HHRetriever) Get (s string)string  {
-
+func (p *HHRetriever)  Get(s string) string {
 	fmt.Println(	fmt.Sprint("假装implement接口"))
-	return 	"实现者的返回值"
+	return p.Contents
+}
 
+func (p *HHRetriever) Post(url string, form map[string]string) string {
+	p.Contents = form["contents"]
+	return "ok"
 }

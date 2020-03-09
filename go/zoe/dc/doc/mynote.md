@@ -333,6 +333,10 @@ func factoryNode(i int) *treeNode {
 
 #### 3. 接口
 
+常用的系统接口:
+
+Stringer/Reader/Writer
+
 ##### 3.1 duck typing
 
 - > The name comes from the phrase:
@@ -449,15 +453,46 @@ func factoryNode(i int) *treeNode {
 
 
 
+##### 3.3 接口的组合
 
+```go
+type Retriever interface{
+	Get()
+}
+type Poster interface {
+  Post(s string) string
+}
+type Session interface {
+  Retriever
+  Poster
+}
+```
 
-
-
-#### 4. ddd
+当A结构同时具有Get（）和Post（）方法时，A结构即实现了以上3个接口
 
 
 
 ### 三、 函数式编程
+
+`
+
+
+
+`
+
+`
+
+
+
+`
+
+
+
+`
+
+
+
+`
 
 ### 四、 工程化
 
@@ -678,7 +713,6 @@ graph LR
 - yanlib
   - kasaya
     - go ja cv kg nlp bc note
-
 
 
 

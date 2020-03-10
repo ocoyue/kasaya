@@ -474,7 +474,38 @@ type Session interface {
 
 ### 三、 函数式编程
 
-`
+#### 1. 函数 & 闭包
+
+##### 1.1 函数式编程 vs 函数指针
+
+- 函数是一等公民：参数，变量，返回值都可以是函数
+- 高阶函数
+- 函数 -> 闭包
+- "正统"函数式编程
+  - 不可变性：不能有状态，只有常量和函数
+  - 函数只能有一个参数
+
+
+
+```go
+type iAdder func(int) (int,iAdder) 	//返回加完的值，和下一个函数
+
+func adder2(basic int) iAdder  {
+	return func(v int) (int, iAdder) {
+		return basic+v,adder2(basic+v)
+	}
+}
+func demo()  {
+	add2 := adder2(0)
+	for i := 0; i < 10; i++ {
+		var sum int
+		sum, add2 = add2(i)
+		fmt.Println(i, sum)
+	}
+}
+```
+
+
 
 
 

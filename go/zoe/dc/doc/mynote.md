@@ -505,11 +505,55 @@ func demo()  {
 }
 ```
 
+##### 1.2 闭包图解
+
+![8EUE4g.png](https://s2.ax1x.com/2020/03/11/8EUE4g.png)
+
+##### 1.3 闭包在其他语言中的实现
+
+- python
+
+```python
+def adder():
+  sum = 0
+  def f(value):
+    nonlocal sum
+    sum += value
+    return sum
+  return f
+// python 原生支持闭包
+// 使用__closure__来查看闭包内容
+```
+
+- c++
+
+```c++
+auto adder() {
+  auto sum = 0;
+  return [=] (int value) mutalbe {
+    sum += value;
+    return sum;
+  };
+}
+// 过去：stl或者boost带有类似库 
+// c++11之后，支持闭包
+```
+
+- java中的闭包
+
+```java
+Function<Integer, Integer> adder() {
+  final Holder<Integer> sum = new Holder<>(0);
+  return (Integer value) -> {
+    sum.value += value;
+    return sum.value;
+  }
+}
+// 1.8 之后：使用Function接口 和 Lambda表达式来创建函数对象
+// 匿名类 或 Lambda表达式均支持闭包
+```
 
 
-
-
-`
 
 `
 
